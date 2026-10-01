@@ -1,0 +1,53 @@
+---
+import sealUrl from '../../assets/whatsapp/icar-gold-class.svg?url';
+import { site } from '../../config/site';
+import { enabled, type Copy } from '../../i18n/whatsapp';
+
+interface Props {
+	copy: Copy;
+	index: string;
+}
+
+const { copy, index } = Astro.props;
+const { why } = copy;
+const showSeal = site.flags.certifications && site.flags.icarSeal;
+---
+
+<section class="why" id="why" data-light="why">
+	<div class="why__aside">
+		<span class="label" data-reveal data-rise><b>{index}</b>{why.label}</span>
+		<h2 class="why__title" data-reveal data-lines>{why.title}</h2>
+		{
+			showSeal && (
+				<img
+					class="why__seal"
+					src={sealUrl}
+					width="1080"
+					height="1080"
+					alt={why.sealAlt}
+					loading="lazy"
+					decoding="async"
+					data-reveal
+					data-rise
+				/>
+			)
+		}
+	</div>
+
+	<ol class="why__list">
+		{
+			enabled(why.items).map((item, i) => (
+				<li class="reason">
+					<span class="reason__line" data-draw aria-hidden="true" />
+					<span class="reason__n" aria-hidden="true">
+						{String(i + 1).padStart(2, '0')}
+					</span>
+					<div data-reveal data-rise>
+						<h3 class="reason__title">{item.title}</h3>
+						<p class="reason__text">{item.text}</p>
+					</div>
+				</li>
+			))
+		}
+	</ol>
+</section>

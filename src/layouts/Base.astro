@@ -1,0 +1,89 @@
+---
+import interUrl from '../assets/fonts/inter-latin-wght-normal.woff2?url';
+import Header, { type HeaderProps } from '../components/Header.astro';
+import SeoHead from '../components/seo/SeoHead.astro';
+import Tracking from '../components/seo/Tracking.astro';
+import type { Locale } from '../i18n/locales';
+
+interface Props {
+	htmlLang: string;
+	locale: Locale;
+	title: string;
+	description: string;
+	path?: string;
+	alternates?: Record<Locale, string>;
+	image: { path: string; width: number; height: number; alt?: string };
+	schema?: object;
+	noindex?: boolean;
+	themeColor?: string;
+	skipLabel: string;
+	header: HeaderProps;
+}
+
+const { htmlLang, skipLabel, header, themeColor = '#0d0d0e', ...seo } = Astro.props;
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<SeoHead {...seo} themeColor={themeColor} />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="preload" href={interUrl} as="font" type="font/woff2" crossorigin />
+		<slot name="head" />
+		<script is:inline>
+			(function () {
+				var root = document.documentElement;
+				var wiped = false;
+				var path = window.location.pathname;
+				if (!/\/$|\.[a-z0-9]+$/i.test(path)) {
+					window.history.replaceState(null, '', path + '/' + window.location.search + window.location.hash);
+				}
+				root.classList.add('js');
+				if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('reduced');
+				try {
+					wiped = Boolean(sessionStorage.getItem('wipe'));
+				} catch (error) {
+					wiped = false;
+				}
+				if (wiped) root.classList.add('from-wipe');
+				window.__failsafe = setTimeout(function () {
+					root.classList.add('fallback');
+					root.classList.remove('from-wipe');
+				}, 4000);
+			})();
+		</script>
+		<Tracking />
+	</head>
+
+	<body>
+		<a class="skip" href="#main">{skipLabel}</a>
+
+		<slot name="atmosphere" />
+
+		<Header {...header}>
+			<Fragment slot="action"><slot name="action" /></Fragment>
+		</Header>
+
+		<main id="main">
+			<slot />
+		</main>
+
+		<slot name="footer" />
+
+		{
+			Astro.slots.has('dock') && (
+				<div class="dock" inert>
+					<slot name="dock" />
+				</div>
+			)
+		}
+
+		<div class="wipe" aria-hidden="true"></div>
+
+		<script>
+			import '../scripts/main.ts';
+		</script>
+	</body>
+</html>

@@ -1,0 +1,28 @@
+---
+import finalPhoto from '../../assets/photos/sedan-gold.jpg';
+import type { KitCopy } from '../../i18n/kit';
+import Button from '../Button.astro';
+import Photo from '../Photo.astro';
+
+interface Props {
+	copy: KitCopy['finalCta'];
+	alt: string;
+}
+
+const { copy, alt } = Astro.props;
+---
+
+<section class="final" aria-labelledby="cta-title">
+	<div class="final__card" data-expand>
+		<Photo class="final__photo" src={finalPhoto} alt={alt} sizes="(min-width: 56.25em) max(100vw, min(177vh, 115rem)), 120vw" position="50% 70%" positionNarrow="50% 60%" parallax />
+
+		<h2 class="title final__title" id="cta-title" data-reveal data-lines>
+			<span class="q">{copy.title[0]}</span>{' '}
+			<span>{copy.title[1]}</span>
+		</h2>
+
+		<div class="final__cta" data-reveal data-rise>
+			<Button href="#lead-form" label={copy.button} size="xl" />
+		</div>
+	</div>
+</section>

@@ -1,0 +1,49 @@
+---
+import authorityPhoto from '../../assets/photos/polishing-hd.jpg';
+import authorityTall from '../../assets/photos/polishing-tall.jpg';
+import type { KitCopy } from '../../i18n/kit';
+import { hdWidths, narrow } from '../../lib/images';
+import Photo from '../Photo.astro';
+
+interface Props {
+	copy: KitCopy['authority'];
+	alt: string;
+}
+
+const { copy, alt } = Astro.props;
+---
+
+<section class="auth" id="authority" aria-labelledby="authority-title">
+	<div class="auth__media" data-zoom>
+		<Photo
+			class="auth__photo"
+			src={authorityPhoto}
+			alt={alt}
+			widths={hdWidths}
+			sizes="(min-width: 64em) max(100vw, 215vh), max(100vw, 154vh)"
+			position="0% 50%"
+			positionNarrow="56% 50%"
+			tall={{ src: authorityTall, media: `${narrow} and (orientation: portrait)`, sizes: 'max(100vw, 62vh)' }}
+			parallax
+		/>
+	</div>
+
+	<div class="wrap auth__wrap">
+		<div class="auth__body">
+			<h2 class="title auth__title" id="authority-title" data-reveal data-lines>
+				<span class="q">{copy.title[0]}</span>{' '}
+				<span>{copy.title[1]}</span>
+			</h2>
+
+			<div class="copy auth__text">
+				{copy.paragraphs.map((paragraph) => <p data-reveal data-rise>{paragraph}</p>)}
+			</div>
+		</div>
+
+		<div class="auth__seal">
+			<span class="auth__bar" aria-hidden="true" data-draw></span>
+			<p class="sr-only" lang="en">{copy.seal}</p>
+			<p class="auth__slogan" lang="en" aria-hidden="true" data-reveal data-crumple>{copy.seal}</p>
+		</div>
+	</div>
+</section>

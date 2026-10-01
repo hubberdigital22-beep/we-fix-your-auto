@@ -1,0 +1,25 @@
+---
+import { site } from '../../config/site';
+import type { KitCopy } from '../../i18n/kit';
+import Lockup from '../Lockup.astro';
+
+interface Props {
+	copy: KitCopy['footer'];
+}
+
+const { copy } = Astro.props;
+---
+
+<footer class="ftr">
+	<div class="wrap">
+		<div class="ftr__row">
+			<Lockup />
+			<p class="ftr__legal" id="lead-consent">
+				{copy.consent}{' '}
+				{site.kit.privacyUrl ? <a href={site.kit.privacyUrl}>{copy.privacy}</a> : copy.privacy}
+			</p>
+		</div>
+
+		<span class="ftr__mark" aria-hidden="true" data-text={site.slogan}></span>
+	</div>
+</footer>

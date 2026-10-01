@@ -1,0 +1,92 @@
+---
+import { routes } from '../../config/routes';
+import { site } from '../../config/site';
+import type { KitCopy } from '../../i18n/kit';
+import { languageNames, locales } from '../../i18n/locales';
+import { absoluteUrl } from '../../lib/url';
+import Button from '../Button.astro';
+
+interface Props {
+	copy: KitCopy;
+}
+
+const { copy } = Astro.props;
+const { form, locale } = copy;
+const thanksPath = routes.thanks[locale];
+---
+
+<form
+	class="kf"
+	id="lead-form"
+	method="post"
+	action={site.kit.endpoint || undefined}
+	data-lead-form
+	data-dock-anchor
+	data-thanks={thanksPath}
+	data-in
+	aria-labelledby="lead-form-title"
+	aria-describedby="lead-consent"
+>
+	<h2 class="kf__title" id="lead-form-title">{form.title}</h2>
+
+	<div class="kf__field">
+		<label for="lead-name">{form.name.label}</label>
+		<input id="lead-name" name="name" type="text" autocomplete="name" placeholder={form.name.placeholder} required />
+	</div>
+
+	<div class="kf__field">
+		<label for="lead-email">{form.email.label}</label>
+		<input
+			id="lead-email"
+			name="email"
+			type="email"
+			autocomplete="email"
+			inputmode="email"
+			placeholder={form.email.placeholder}
+			required
+		/>
+	</div>
+
+	<div class="kf__field">
+		<label for="lead-whatsapp">{form.whatsapp.label}</label>
+		<input
+			id="lead-whatsapp"
+			name="whatsapp"
+			type="tel"
+			autocomplete="tel"
+			inputmode="tel"
+			placeholder={form.whatsapp.placeholder}
+		/>
+	</div>
+
+	<fieldset class="kf__field">
+		<legend>{form.language.label}</legend>
+		<div class="chips">
+			{
+				locales.map((value) => (
+					<label class="chip">
+						<input type="radio" name="language" value={value} checked={value === locale} />
+						<span lang={value}>{languageNames[value]}</span>
+					</label>
+				))
+			}
+		</div>
+	</fieldset>
+
+	<input type="hidden" name="page_language" value={locale} />
+	<input type="hidden" name="ref" value={`KIT-${locale.toUpperCase()}`} />
+	<input type="hidden" name="source" value="" />
+	<input type="hidden" name="_redirect" value={absoluteUrl(thanksPath)} />
+
+	<div class="kf__trap" aria-hidden="true">
+		<label>
+			Website
+			<input type="text" name="website" tabindex="-1" autocomplete="off" />
+		</label>
+	</div>
+
+	<Button label={form.submit} busyLabel={form.sending} />
+
+	<p class="kf__status" role="alert" hidden>{form.error}</p>
+	<p class="kf__note">{form.note}</p>
+</form>

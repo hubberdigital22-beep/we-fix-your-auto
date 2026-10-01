@@ -1,0 +1,54 @@
+---
+import heroPhoto from '../../assets/photos/headlight-soft.jpg';
+import heroTall from '../../assets/photos/headlight-tall.jpg';
+import type { KitCopy } from '../../i18n/kit';
+import { heroSizes, heroTallSizes, narrow } from '../../lib/images';
+import Photo from '../Photo.astro';
+import LeadForm from './LeadForm.astro';
+
+interface Props {
+	copy: KitCopy;
+}
+
+const { copy } = Astro.props;
+const { hero } = copy;
+---
+
+<section class="hero hero--home" aria-labelledby="hero-title">
+	<Photo
+		class="hero__photo"
+		src={heroPhoto}
+		alt={copy.images.hero}
+		sizes={heroSizes}
+		position="64% 50%"
+		positionNarrow="50% 50%"
+		tall={{ src: heroTall, media: narrow, sizes: heroTallSizes }}
+		eager
+	/>
+
+	<div class="hero__body">
+		<div class="hero__head">
+			<span class="label" data-in>{hero.eyebrow}</span>
+			<h1 class="title hero__title" id="hero-title">
+				<span class="rise q" style="--i:0"><span>{hero.title[0]}</span></span>{' '}
+				<span class="rise" style="--i:1"><span>{hero.title[1]}</span></span>
+			</h1>
+		</div>
+		<p class="hero__sub" data-in style="--i:0">{hero.subtitle}</p>
+		<ul class="pills">
+			{
+				hero.highlights.map((item, index) => (
+					<li class="pill" data-in style={`--i:${index + 1}`}>
+						{item}
+					</li>
+				))
+			}
+		</ul>
+	</div>
+
+	<div class="hero__aside">
+		<div class="hero__form">
+			<LeadForm copy={copy} />
+		</div>
+	</div>
+</section>

@@ -1,0 +1,28 @@
+---
+import { whatsappUrl, type Copy } from '../../i18n/whatsapp';
+
+interface Props {
+	copy: Copy;
+	placement: string;
+	size?: 'sm' | 'md' | 'xl';
+	label?: string;
+}
+
+const { copy, placement, size = 'md', label = copy.cta.whatsapp } = Astro.props;
+---
+
+<a
+	class:list={['btn', size !== 'md' && `btn--${size}`]}
+	href={whatsappUrl(copy, placement)}
+	target="_blank"
+	rel="noopener"
+	data-wa={placement}
+>
+	<span class="btn__label">{label}</span>
+	<span class="btn__icon" aria-hidden="true">
+		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M6 18 18 6M8 6h10v10"></path>
+		</svg>
+	</span>
+	<span class="sr-only">({copy.a11y.whatsappNew})</span>
+</a>

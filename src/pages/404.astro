@@ -1,0 +1,65 @@
+---
+import NotFound from '../components/kit/NotFound.astro';
+import { routes } from '../config/routes';
+import { getKitCopy } from '../i18n/kit';
+import { notFoundCopy } from '../i18n/kit/not-found';
+import { htmlLangs, locales } from '../i18n/locales';
+import Base from '../layouts/Base.astro';
+import '../styles/kit.css';
+
+const copy = getKitCopy('es');
+const pages = Object.fromEntries(
+	locales.map((locale) => [locale, { lang: htmlLangs[locale], title: notFoundCopy[locale].seoTitle }]),
+);
+const known = Object.values(routes).flatMap((paths) => Object.values(paths));
+---
+
+<Base
+	htmlLang={copy.htmlLang}
+	locale="es"
+	title={notFoundCopy.es.seoTitle}
+	description={notFoundCopy.es.description}
+	image={{ path: '/og/kit-es.jpg', width: 1200, height: 630 }}
+	skipLabel={copy.a11y.skipToContent}
+	header={{ home: routes.home.es }}
+	noindex
+>
+	<script is:inline slot="head" define:vars={{ known }}>
+		(function () {
+			var path = window.location.pathname.replace(/\/+$/, '') + '/';
+			var target = known.filter(function (route) {
+				return route.toLowerCase() === path.toLowerCase();
+			})[0];
+			if (target && target !== window.location.pathname) {
+				window.location.replace(target + window.location.search + window.location.hash);
+			}
+		})();
+	</script>
+	<script is:inline slot="head" define:vars={{ pages }}>
+		(function () {
+			var pick = function (path) {
+				var match = /^\/(en|pt)(\/|$)/.exec(path || '');
+				return match ? match[1] : null;
+			};
+			var locale = pick(window.location.pathname);
+			if (!locale && document.referrer) {
+				try {
+					var from = new URL(document.referrer);
+					if (from.origin === window.location.origin) locale = pick(from.pathname);
+				} catch (error) {
+					locale = null;
+				}
+			}
+			locale = locale || 'es';
+			var root = document.documentElement;
+			root.dataset.locale = locale;
+			root.lang = pages[locale].lang;
+			document.title = pages[locale].title;
+		})();
+	</script>
+	<NotFound />
+	<script>
+		import '../scripts/kit/back';
+		import '../scripts/kit';
+	</script>
+</Base>

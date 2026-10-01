@@ -1,0 +1,54 @@
+---
+import { locales, type Locale } from '../i18n/locales';
+import LangMenu from './LangMenu.astro';
+import Lockup from './Lockup.astro';
+
+export interface HeaderProps {
+	home: string;
+	links?: { href: string; label: string }[];
+	navLabel?: string;
+	lang?: { current: Locale; paths: Record<Locale, string>; label: string; menu?: boolean };
+}
+
+type Props = HeaderProps;
+
+const { home, links = [], navLabel, lang } = Astro.props;
+const action = Astro.slots.has('action') ? (await Astro.slots.render('action')).trim() : '';
+---
+
+<header class="hdr">
+	<Lockup href={home} />
+
+	{
+		links.length > 0 && (
+			<nav class="hdr__nav" aria-label={navLabel}>
+				{links.map((link) => (
+					<a href={link.href}>{link.label}</a>
+				))}
+			</nav>
+		)
+	}
+
+	{
+		(lang || action) && (
+			<div class="hdr__end">
+				{lang?.menu && <LangMenu current={lang.current} paths={lang.paths} label={lang.label} />}
+				{lang && !lang.menu && (
+					<nav class="lang" aria-label={lang.label}>
+						{locales.map((locale) => (
+							<a
+								href={lang.paths[locale]}
+								hreflang={locale}
+								lang={locale}
+								aria-current={locale === lang.current ? 'true' : undefined}
+							>
+								{locale.toUpperCase()}
+							</a>
+						))}
+					</nav>
+				)}
+				{action && <Fragment set:html={action} />}
+			</div>
+		)
+	}
+</header>

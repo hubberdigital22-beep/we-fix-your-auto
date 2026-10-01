@@ -1,0 +1,39 @@
+---
+import { languageNames, locales, type Locale } from '../i18n/locales';
+import Icon from './Icon.astro';
+
+interface Props {
+	current: Locale;
+	paths: Record<Locale, string>;
+	label: string;
+}
+
+const { current, paths, label } = Astro.props;
+---
+
+<details class="lm" data-lang-menu>
+	<summary class="lm__btn">
+		<Icon name="globe" class="lm__globe" weight={1.7} />
+		<span class="sr-only">{label}:</span>
+		<span class="lm__code" lang={current}>{current.toUpperCase()}</span>
+		<Icon name="caret" class="lm__caret" weight={2} />
+	</summary>
+	<nav class="lm__panel" aria-label={label}>
+		{
+			locales.map((locale, index) => (
+				<a
+					class="lm__item"
+					href={paths[locale]}
+					hreflang={locale}
+					lang={locale}
+					aria-current={locale === current ? 'true' : undefined}
+					style={`--i:${index}`}
+				>
+					<span class="lm__abbr">{locale.toUpperCase()}</span>
+					<span class="lm__name">{languageNames[locale]}</span>
+					{locale === current && <Icon name="check" class="lm__check" weight={2.2} />}
+				</a>
+			))
+		}
+	</nav>
+</details>

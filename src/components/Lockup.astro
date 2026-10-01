@@ -1,0 +1,22 @@
+---
+import { site } from '../config/site';
+
+interface Props {
+	href?: string;
+}
+
+const { href } = Astro.props;
+const Tag = href ? 'a' : 'span';
+---
+
+<Tag class="lockup" href={href}>
+	{
+		site.logo ? (
+			<img src={site.logo.src} width={site.logo.width} height={site.logo.height} alt={site.name} />
+		) : (
+			<span class="lockup__name">{site.name}</span>
+		)
+	}
+	<span class="lockup__div" aria-hidden="true"></span>
+	<span class="lockup__slogan">{site.slogan}</span>
+</Tag>

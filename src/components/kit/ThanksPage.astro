@@ -1,0 +1,34 @@
+---
+import { routes } from '../../config/routes';
+import { getKitCopy } from '../../i18n/kit';
+import type { Locale } from '../../i18n/locales';
+import Base from '../../layouts/Base.astro';
+import '../../styles/kit.css';
+import Thanks from './Thanks.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = getKitCopy(locale);
+const image = { path: `/og/kit-${locale}.jpg`, width: 1200, height: 630, alt: copy.seo.imageAlt };
+---
+
+<Base
+	htmlLang={copy.htmlLang}
+	locale={locale}
+	title={copy.thanks.seo.title}
+	description={copy.thanks.seo.description}
+	path={routes.thanks[locale]}
+	image={image}
+	skipLabel={copy.a11y.skipToContent}
+	header={{ home: routes.home[locale] }}
+	noindex
+>
+	<Thanks copy={copy.thanks} alt={copy.images.thanks} home={routes.home[locale]} />
+	<script>
+		import '../../scripts/kit/thanks';
+		import '../../scripts/kit';
+	</script>
+</Base>

@@ -1,0 +1,32 @@
+---
+import type { KitCopy } from '../../i18n/kit';
+import Icon from '../Icon.astro';
+
+interface Props {
+	copy: KitCopy['audience'];
+}
+
+const { copy } = Astro.props;
+---
+
+<section class="sec who" id="audience" aria-labelledby="audience-title">
+	<div class="wrap who__wrap">
+		<header class="who__head">
+			<h2 class="title who__title" id="audience-title" data-reveal data-lines>{copy.title}</h2>
+		</header>
+
+		<ul class="who__list">
+			{
+				copy.items.map((item, index) => (
+					<li class="who__item" style={`--n:${index}`}>
+						<span class="who__line" data-draw aria-hidden="true" />
+						<span class="who__check" aria-hidden="true">
+							<Icon name="tick" weight={2.4} />
+						</span>
+						<span data-reveal data-rise>{item}</span>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>

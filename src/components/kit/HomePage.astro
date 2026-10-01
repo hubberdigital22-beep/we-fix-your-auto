@@ -1,0 +1,82 @@
+---
+import { getImage } from 'astro:assets';
+import heroPhoto from '../../assets/photos/headlight-soft.jpg';
+import heroTallPhoto from '../../assets/photos/headlight-tall.jpg';
+import { routes } from '../../config/routes';
+import { getKitCopy } from '../../i18n/kit';
+import type { Locale } from '../../i18n/locales';
+import Base from '../../layouts/Base.astro';
+import { builtAt } from '../../lib/build';
+import { heroSizes, heroTallSizes, narrow, photoQuality, photoWidths, tallImage } from '../../lib/images';
+import { kitSchema } from '../../lib/schema';
+import '../../styles/kit.css';
+import Button from '../Button.astro';
+import Audience from './Audience.astro';
+import Authority from './Authority.astro';
+import Faq from './Faq.astro';
+import FinalCta from './FinalCta.astro';
+import Footer from './Footer.astro';
+import Hero from './Hero.astro';
+import Includes from './Includes.astro';
+import Problem from './Problem.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = getKitCopy(locale);
+const path = routes.home[locale];
+const image = { path: `/og/kit-${locale}.jpg`, width: 1200, height: 630, alt: copy.seo.imageAlt };
+const header = { home: path, lang: { current: locale, paths: routes.home, label: copy.a11y.languageNav, menu: true } };
+const heroPreload = await getImage({ src: heroPhoto, width: 1600, widths: photoWidths, sizes: heroSizes, format: 'webp', quality: photoQuality });
+const heroTallPreload = await tallImage(heroTallPhoto);
+---
+
+<Base
+	htmlLang={copy.htmlLang}
+	locale={locale}
+	title={copy.seo.title}
+	description={copy.seo.description}
+	path={path}
+	alternates={routes.home}
+	image={image}
+	schema={kitSchema({ copy, path, image, modifiedAt: builtAt })}
+	skipLabel={copy.a11y.skipToContent}
+	header={header}
+>
+	<link
+		slot="head"
+		rel="preload"
+		as="image"
+		type="image/webp"
+		media={narrow}
+		imagesrcset={heroTallPreload.srcSet.attribute}
+		imagesizes={heroTallSizes}
+		fetchpriority="high"
+	/>
+	<link
+		slot="head"
+		rel="preload"
+		as="image"
+		type="image/webp"
+		media="(min-width: 64em)"
+		imagesrcset={heroPreload.srcSet.attribute}
+		imagesizes={heroSizes}
+		fetchpriority="high"
+	/>
+	<Button slot="action" href="#lead-form" label={copy.finalCta.button} size="sm" />
+	<Hero copy={copy} />
+	<Problem copy={copy.problem} alt={copy.images.problem} />
+	<Includes copy={copy.includes} />
+	<Authority copy={copy.authority} alt={copy.images.authority} />
+	<Audience copy={copy.audience} />
+	<FinalCta copy={copy.finalCta} alt={copy.images.final} />
+	<Faq copy={copy.faq} />
+	<Footer slot="footer" copy={copy.footer} />
+	<Button slot="dock" href="#lead-form" label={copy.finalCta.button} />
+	<script>
+		import '../../scripts/kit/form';
+		import '../../scripts/kit';
+	</script>
+</Base>

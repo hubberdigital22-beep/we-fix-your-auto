@@ -1,0 +1,140 @@
+---
+import { Image } from 'astro:assets';
+import fogPhoto from '../../assets/photos/fog-mono.jpg';
+import fogCar from '../../assets/scene/fog-mono-car.png';
+import fogLine from '../../assets/scene/neon-fog-line.png';
+import { routes } from '../../config/routes';
+import { getKitCopy } from '../../i18n/kit';
+import { notFoundCopy } from '../../i18n/kit/not-found';
+import { htmlLangs, locales } from '../../i18n/locales';
+import Button from '../Button.astro';
+import { glass404 } from './glass-404';
+
+const shape = `url("data:image/svg+xml,${encodeURIComponent(
+	`<svg xmlns='http://www.w3.org/2000/svg' viewBox='${glass404.viewBox}'><path d='${glass404.path}'/></svg>`,
+)}")`;
+
+const sceneQuality = 90;
+
+const localized = Object.fromEntries(
+	locales.map((locale) => [
+		locale,
+		{
+			alt: notFoundCopy[locale].imageAlt,
+			skip: getKitCopy(locale).a11y.skipToContent,
+			home: routes.home[locale],
+		},
+	]),
+);
+---
+
+<section class="nf" aria-labelledby="nf-title">
+	<div class="nf__card">
+		<div class="nf__stage">
+			<div class="nf__scene">
+				<Image
+					class="nf__bg"
+					src={fogPhoto}
+					alt={notFoundCopy.es.imageAlt}
+					width={1600}
+					widths={[960, 1280, 1600, 1920, 2560, 3200]}
+					sizes="(min-width: 64em) max(100vw, 150svh), max(100vw, 78svh)"
+					format="webp"
+					quality={sceneQuality}
+					loading="eager"
+					fetchpriority="high"
+					decoding="async"
+				/>
+				<div class="nf__glass" aria-hidden="true">
+					<span class="nf__frost" style={`--shape:${shape}`}></span>
+					<svg class="nf__edge" viewBox={glass404.viewBox} preserveAspectRatio="xMidYMid meet">
+						<defs>
+							<linearGradient id="nf-shine" x1="0" y1="0" x2="0" y2="1">
+								<stop offset="0" stop-color="#fff" stop-opacity="0.06"></stop>
+								<stop offset="0.5" stop-color="#fff" stop-opacity="0"></stop>
+								<stop offset="1" stop-color="#fff" stop-opacity="0"></stop>
+							</linearGradient>
+							<linearGradient id="nf-rim" x1="0" y1="0" x2="0" y2="1">
+								<stop offset="0" stop-color="#fff" stop-opacity="0.3"></stop>
+								<stop offset="0.45" stop-color="#fff" stop-opacity="0.06"></stop>
+								<stop offset="0.85" stop-color="#fff" stop-opacity="0"></stop>
+							</linearGradient>
+						</defs>
+						<path d={glass404.path} fill="url(#nf-shine)" stroke="url(#nf-rim)" stroke-width="1" vector-effect="non-scaling-stroke"></path>
+					</svg>
+				</div>
+				<Image
+					class="nf__car"
+					src={fogCar}
+					alt=""
+					width={1350}
+					widths={[640, 960, 1350]}
+					sizes="(min-width: 64em) max(38vw, 56svh), max(38vw, 30svh)"
+					format="webp"
+					quality={sceneQuality}
+					loading="eager"
+					decoding="async"
+				/>
+				<Image
+					class="nf__line"
+					src={fogLine}
+					alt=""
+					width={993}
+					widths={[497, 993]}
+					sizes="(min-width: 64em) max(28vw, 42svh), max(28vw, 22svh)"
+					format="webp"
+					quality={sceneQuality}
+					loading="eager"
+					decoding="async"
+				/>
+			</div>
+			<span class="nf__shade" aria-hidden="true"></span>
+		</div>
+
+		<div class="nf__body">
+			<h1 class="title hero__title" id="nf-title">
+				{
+					locales.map((locale) => (
+						<>
+							<span class="rise q" style="--i:0" data-l={locale} lang={htmlLangs[locale]}>
+								<span>{notFoundCopy[locale].title[0]}</span>
+							</span>{' '}
+							<span class="rise" style="--i:1" data-l={locale} lang={htmlLangs[locale]}>
+								<span>{notFoundCopy[locale].title[1]}</span>
+							</span>
+						</>
+					))
+				}
+			</h1>
+
+			{
+				locales.map((locale) => (
+					<p class="hero__sub" data-in style="--i:0" data-l={locale} lang={htmlLangs[locale]}>
+						{notFoundCopy[locale].subtitle}
+					</p>
+				))
+			}
+
+			{
+				locales.map((locale) => (
+					<div class="nf__back" data-in style="--i:1" data-l={locale} lang={htmlLangs[locale]}>
+						<Button href={routes.home[locale]} label={notFoundCopy[locale].back} icon="back" data-back />
+					</div>
+				))
+			}
+		</div>
+
+	</div>
+</section>
+
+<script is:inline define:vars={{ localized }}>
+	(function () {
+		var current = localized[document.documentElement.dataset.locale] || localized.es;
+		var photo = document.querySelector('.nf__bg');
+		var skip = document.querySelector('.skip');
+		var home = document.querySelector('.hdr .lockup');
+		if (photo) photo.alt = current.alt;
+		if (skip) skip.textContent = current.skip;
+		if (home) home.setAttribute('href', current.home);
+	})();
+</script>

@@ -1,0 +1,24 @@
+---
+import type { Copy } from '../../i18n/whatsapp';
+import WhatsAppButton from './WhatsAppButton.astro';
+
+interface Props {
+	copy: Copy;
+}
+
+const { copy } = Astro.props;
+const { final } = copy;
+---
+
+<section class="final" data-light="final">
+	<span class="label" data-reveal data-rise><span class="stripes" aria-hidden="true"></span>{final.label}</span>
+
+	<h2 class="final__title" data-reveal data-lines>
+		<span>{final.title[0]}</span>{' '}
+		<span>{final.title[1]}</span>
+	</h2>
+
+	<div class="final__cta" data-reveal data-rise>
+		<WhatsAppButton copy={copy} placement="final" size="xl" />
+	</div>
+</section>

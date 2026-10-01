@@ -1,0 +1,53 @@
+---
+import { site } from '../../config/site';
+import { enabled, hasStar, star, type Copy } from '../../i18n/whatsapp';
+import WhatsAppButton from './WhatsAppButton.astro';
+
+interface Props {
+	copy: Copy;
+}
+
+const { copy } = Astro.props;
+const { hero } = copy;
+---
+
+<section class="hero" data-light="hero">
+	<div class="hero__meta">
+		<span class="label" data-in>{hero.eyebrow}</span>
+		<span class="label" data-in>
+			{site.city}
+			<b><time data-clock={site.timeZone}></time></b>
+		</span>
+	</div>
+
+	<div class="hero__body">
+		<span class="bar" aria-hidden="true"></span>
+
+		<h1 class="hero__title">
+			<span class="rise past" style="--i:0"><span>{hero.title[0]}</span></span>{' '}
+			<span class="rise" style="--i:1"><span>{hero.title[1]}</span></span>
+		</h1>
+
+		<div class="hero__offer">
+			<div data-in style="--i:0">
+				<p class="hero__sub">{star(hero.sub)}</p>
+				{hasStar(hero.sub) && <p class="cond">*{copy.towCondition}</p>}
+			</div>
+			<div class="hero__cta" data-in style="--i:1">
+				<WhatsAppButton copy={copy} placement="hero" />
+			</div>
+		</div>
+
+		<div class="hero__foot" data-in style="--i:2">
+			<ul class="checks">
+				{enabled(hero.checks).map((check) => <li>{check.text}</li>)}
+			</ul>
+			<a class="hero__cue" href="#how">
+				{hero.cue}
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M12 4v16M5 13l7 7 7-7"></path>
+				</svg>
+			</a>
+		</div>
+	</div>
+</section>

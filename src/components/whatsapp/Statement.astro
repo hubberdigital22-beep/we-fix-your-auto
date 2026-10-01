@@ -1,0 +1,37 @@
+---
+interface Props {
+	variant: 'speed' | 'renew';
+	lines: string[];
+	caption?: string;
+}
+
+const { variant, lines, caption } = Astro.props;
+---
+
+<section class:list={['st', `st--${variant}`]} data-light={variant}>
+	{
+		variant === 'speed' && (
+			<div class="st__lanes" aria-hidden="true">
+				{Array.from({ length: 7 }).map(() => (
+					<i />
+				))}
+			</div>
+		)
+	}
+
+	<p class="sr-only">{lines.join(' ')}</p>
+	<p class="st__text" data-reveal aria-hidden="true">
+		{
+			variant === 'speed'
+				? lines.map((line, i) => (
+						<>
+							<span>{line}</span>
+							{i < lines.length - 1 && ' '}
+						</>
+					))
+				: lines.join(' ')
+		}
+	</p>
+
+	{caption && <p class="st__cap" data-reveal data-rise>{caption}</p>}
+</section>

@@ -1,0 +1,18 @@
+---
+import { site } from '../../config/site';
+
+const items = [site.slogan, site.slogan];
+---
+
+<div class="mq" aria-hidden="true">
+	<div class="mq__track">
+		{
+			items.map((item) => (
+				<span class="mq__item">
+					{item}
+					<i class="stripes" />
+				</span>
+			))
+		}
+	</div>
+</div>

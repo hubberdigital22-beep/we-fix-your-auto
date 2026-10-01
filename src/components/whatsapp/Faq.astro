@@ -1,0 +1,37 @@
+---
+import { enabled, hasStar, star, type Copy } from '../../i18n/whatsapp';
+
+interface Props {
+	copy: Copy;
+	index: string;
+}
+
+const { copy, index } = Astro.props;
+const { faq } = copy;
+---
+
+<section class="faq" id="faq" data-light="faq" data-opaque>
+	<header class="faq__head">
+		<span class="label" data-reveal data-rise><b>{index}</b>{faq.label}</span>
+		<h2 class="faq__title" data-reveal data-lines>{faq.title}</h2>
+	</header>
+
+	<div class="faq__list">
+		{
+			enabled(faq.items).map((item) => (
+				<details class="qa">
+					<summary>
+						{item.q}
+						<span class="qa__icon" aria-hidden="true" />
+					</summary>
+					<div class="qa__body">
+						<div>
+							<p>{star(item.a)}</p>
+							{hasStar(item.a) && <p class="cond">*{copy.towCondition}</p>}
+						</div>
+					</div>
+				</details>
+			))
+		}
+	</div>
+</section>

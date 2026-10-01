@@ -1,0 +1,67 @@
+---
+import { routes } from '../../config/routes';
+import { getCopy, type Locale } from '../../i18n/whatsapp';
+import Base from '../../layouts/Base.astro';
+import { whatsappSchema } from '../../lib/schema';
+import '../../styles/whatsapp.css';
+import Faq from './Faq.astro';
+import Final from './Final.astro';
+import Footer from './Footer.astro';
+import Hero from './Hero.astro';
+import Journey from './Journey.astro';
+import Marquee from './Marquee.astro';
+import Statement from './Statement.astro';
+import WhatsAppButton from './WhatsAppButton.astro';
+import Why from './Why.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = getCopy(locale);
+const header = {
+	home: routes.whatsapp[locale],
+	links: [
+		{ href: '#how', label: copy.nav.how },
+		{ href: '#why', label: copy.nav.why },
+		{ href: '#faq', label: copy.nav.faq },
+	],
+	navLabel: copy.a11y.nav,
+	lang: { current: locale, paths: routes.whatsapp, label: copy.a11y.lang },
+};
+---
+
+<Base
+	htmlLang={copy.htmlLang}
+	locale={locale}
+	title={copy.meta.title}
+	description={copy.meta.description}
+	path={routes.whatsapp[locale]}
+	alternates={routes.whatsapp}
+	image={{ path: `/og/whatsapp-${locale}.jpg`, width: 1200, height: 630 }}
+	schema={whatsappSchema(copy)}
+	skipLabel={copy.a11y.skip}
+	header={header}
+	themeColor="#0b0b0c"
+	noindex
+>
+	<Fragment slot="atmosphere">
+		<div class="light" aria-hidden="true"><canvas></canvas></div>
+		<div class="grain" aria-hidden="true"></div>
+	</Fragment>
+	<WhatsAppButton slot="action" copy={copy} placement="header" size="sm" label="WhatsApp" />
+	<Hero copy={copy} />
+	<Marquee />
+	<Journey copy={copy} index="01" />
+	<Statement variant="speed" lines={copy.speed} />
+	<Why copy={copy} index="02" />
+	<Statement variant="renew" lines={[copy.renew.text]} caption={copy.renew.caption} />
+	<Faq copy={copy} index="03" />
+	<Final copy={copy} />
+	<Footer slot="footer" copy={copy} />
+	<WhatsAppButton slot="dock" copy={copy} placement="dock" />
+	<script>
+		import '../../scripts/whatsapp';
+	</script>
+</Base>

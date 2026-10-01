@@ -1,0 +1,29 @@
+---
+import problemPhoto from '../../assets/photos/highway-gold.jpg';
+import type { KitCopy } from '../../i18n/kit';
+import Photo from '../Photo.astro';
+
+interface Props {
+	copy: KitCopy['problem'];
+	alt: string;
+}
+
+const { copy, alt } = Astro.props;
+---
+
+<section class="sec prob" id="problem" aria-labelledby="problem-title">
+	<div class="wrap prob__head">
+		<h2 class="title prob__title" id="problem-title" data-reveal data-lines>
+			<span class="q">{copy.title[0]}</span>{' '}
+			<span>{copy.title[1]}</span>
+		</h2>
+		<div class="copy prob__text">
+			{copy.paragraphs.map((paragraph) => <p data-reveal data-rise>{paragraph}</p>)}
+		</div>
+	</div>
+
+	<div class="prob__media" data-expand>
+		<Photo class="prob__photo" src={problemPhoto} alt={alt} sizes="(min-width: 56.25em) max(100vw, min(116vh, 74rem)), max(100vw, min(96vh, 61rem))" position="50% 36%" positionNarrow="50% 50%" parallax />
+		<p class="prob__punch" data-reveal data-lines>{copy.conclusion}</p>
+	</div>
+</section>

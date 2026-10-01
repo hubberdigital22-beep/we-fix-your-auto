@@ -1,0 +1,35 @@
+---
+import type { KitCopy } from '../../i18n/kit';
+
+interface Props {
+	copy: KitCopy['faq'];
+}
+
+const { copy } = Astro.props;
+---
+
+<section class="sec faq" id="faq" aria-labelledby="faq-title">
+	<div class="wrap faq__wrap">
+		<header class="faq__head">
+			<h2 class="title faq__title" id="faq-title" data-reveal data-lines>{copy.title}</h2>
+		</header>
+
+		<div class="faq__list">
+			{
+				copy.items.map((item) => (
+					<details class="qa">
+						<summary>
+							{item.question}
+							<span class="qa__icon" aria-hidden="true" />
+						</summary>
+						<div class="qa__body">
+							<div>
+								<p>{item.answer}</p>
+							</div>
+						</div>
+					</details>
+				))
+			}
+		</div>
+	</div>
+</section>

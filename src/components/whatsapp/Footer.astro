@@ -1,0 +1,76 @@
+---
+import { site } from '../../config/site';
+import { localePath, locales, whatsappUrl, type Copy } from '../../i18n/whatsapp';
+import { languageNames } from '../../i18n/locales';
+import Lockup from '../Lockup.astro';
+
+interface Props {
+	copy: Copy;
+}
+
+const { copy } = Astro.props;
+const { footer } = copy;
+---
+
+<footer class="ftr">
+	<div class="ftr__grid">
+		<div class="ftr__col">
+			<Lockup />
+			<span>{footer.spoken}</span>
+		</div>
+
+		<div class="ftr__col">
+			<span class="label">{footer.contact}</span>
+			<a href={whatsappUrl(copy, 'footer')} target="_blank" rel="noopener" data-wa="footer">
+				WhatsApp
+				<span class="sr-only">({copy.a11y.whatsappNew})</span>
+			</a>
+			<span>{site.whatsapp.display}</span>
+		</div>
+
+		<div class="ftr__col">
+			<span class="label">{footer.where}</span>
+			{
+				site.address ? (
+					<>
+						<span>{site.address.street}</span>
+						<span>
+							{site.address.city}, {site.address.region} {site.address.postalCode}
+						</span>
+					</>
+				) : (
+					<span>{site.area}</span>
+				)
+			}
+			{site.hours && <span>{site.hours}</span>}
+		</div>
+
+		<div class="ftr__col">
+			<span class="label">{footer.languages}</span>
+			{
+				locales.map((locale) =>
+					locale === copy.locale ? (
+						<span>{languageNames[locale]}</span>
+					) : (
+						<a href={localePath(locale)} hreflang={locale} lang={locale}>
+							{languageNames[locale]}
+						</a>
+					),
+				)
+			}
+		</div>
+	</div>
+
+	<span class="ftr__mark" aria-hidden="true">{site.slogan}</span>
+
+	<div class="ftr__base">
+		<span>© {site.year} {site.name}. {footer.rights}</span>
+		<span>{site.domain}</span>
+		<a href="#main">
+			{footer.top}
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M12 20V4M5 11l7-7 7 7"></path>
+			</svg>
+		</a>
+	</div>
+</footer>

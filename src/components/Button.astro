@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Icon from './Icon.astro';
+
+interface Props extends Omit<HTMLAttributes<'a'>, 'class' | 'class:list' | 'type'> {
+	href?: string;
+	label: string;
+	busyLabel?: string;
+	size?: 'sm' | 'md' | 'xl';
+	variant?: 'gold' | 'ink' | 'ghost';
+	icon?: 'forward' | 'back';
+}
+
+const { href, label, busyLabel, size = 'md', variant = 'gold', icon = 'forward', ...attributes } = Astro.props;
+const Tag = href ? 'a' : 'button';
+const arrow = icon === 'back' ? 'back' : 'arrow';
+---
+
+<Tag
+	class:list={['btn', size !== 'md' && `btn--${size}`, variant !== 'gold' && `btn--${variant}`, icon === 'back' && 'btn--back']}
+	href={href}
+	type={href ? undefined : 'submit'}
+	{...attributes}
+>
+	<span class="btn__label idle">{label}</span>
+	{busyLabel && <span class="btn__label busy">{busyLabel}</span>}
+	<span class="btn__icon" aria-hidden="true">
+		<Icon name={arrow} weight={2.2} />
+		<Icon name={arrow} weight={2.2} />
+	</span>
+</Tag>

@@ -1,0 +1,44 @@
+---
+import { hasStar, star, type Copy } from '../../i18n/whatsapp';
+
+interface Props {
+	copy: Copy;
+	index: string;
+}
+
+const { copy, index } = Astro.props;
+const { journey } = copy;
+const total = String(journey.steps.length).padStart(2, '0');
+const showCondition = journey.steps.some((step) => hasStar(step.title) || hasStar(step.text));
+---
+
+<section class="jr" id="how" data-light="journey">
+	<div class="jr__pin">
+		<header class="jr__head">
+			<span class="label" data-reveal data-rise><b>{index}</b>{journey.label}</span>
+			<h2 class="jr__title" data-reveal data-lines>{journey.title}</h2>
+			<p class="jr__count" aria-hidden="true"><b>01</b> / {total}</p>
+		</header>
+
+		<ol class="jr__track">
+			{
+				journey.steps.map((step, i) => (
+					<li class="step">
+						<span class="step__num" aria-hidden="true">
+							{String(i + 1).padStart(2, '0')}
+						</span>
+						<div>
+							<h3 class="step__title">{star(step.title)}</h3>
+							<p class="step__text">{star(step.text)}</p>
+						</div>
+					</li>
+				))
+			}
+		</ol>
+
+		<footer class="jr__foot">
+			<div class="jr__bar" aria-hidden="true"><span></span></div>
+			{showCondition && <p class="cond">*{copy.towCondition}</p>}
+		</footer>
+	</div>
+</section>

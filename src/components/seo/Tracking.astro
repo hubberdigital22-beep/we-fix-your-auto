@@ -1,0 +1,20 @@
+---
+import { site } from '../../config/site';
+
+const { gtmId } = site.tracking;
+---
+
+{
+	gtmId && (
+		<script is:inline define:vars={{ gtmId }}>
+			window.dataLayer = window.dataLayer || [];
+			window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+			window.addEventListener('load', function () {
+				var script = document.createElement('script');
+				script.async = true;
+				script.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtmId;
+				document.head.appendChild(script);
+			});
+		</script>
+	)
+}

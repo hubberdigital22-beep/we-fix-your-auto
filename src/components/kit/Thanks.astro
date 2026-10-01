@@ -1,0 +1,58 @@
+---
+import thanksPhoto from '../../assets/photos/ioniq-gold.jpg';
+import type { KitCopy } from '../../i18n/kit';
+import Button from '../Button.astro';
+import Icon from '../Icon.astro';
+import { hdWidths } from '../../lib/images';
+import Photo from '../Photo.astro';
+
+interface Props {
+	copy: KitCopy['thanks'];
+	alt: string;
+	home: string;
+}
+
+const { copy, alt, home } = Astro.props;
+---
+
+<section class="hero hero--stage hero--thx" aria-labelledby="thanks-title">
+	<Photo
+		class="hero__photo"
+		src={thanksPhoto}
+		alt={alt}
+		widths={hdWidths}
+		sizes="(min-width: 64em) max(54vw, 133vh), max(100vw, 94vh)"
+		position="50% 52%"
+		quality={90}
+		eager
+	/>
+
+	<div class="hero__body">
+		<span class="thx__icon" data-in aria-hidden="true">
+			<Icon name="mail" weight={1.5} />
+		</span>
+
+		<h1 class="title hero__title" id="thanks-title">
+			<span class="rise q" style="--i:0"><span>{copy.title[0]}</span></span>{' '}
+			<span class="rise" style="--i:1"><span>{copy.title[1]}</span></span>
+		</h1>
+
+		<p class="hero__sub" data-in style="--i:0">{copy.subtitle}</p>
+
+		<div class="thx__back" data-in style="--i:1">
+			<Button href={home} label={copy.back} icon="back" />
+		</div>
+	</div>
+
+	<ol class="hero__grid">
+		{
+			copy.cards.map((card, index) => (
+				<li class="hero__cell" data-in style={`--i:${index + 2}`}>
+					<span class="label">{card.eyebrow}</span>
+					<h2 class="thx__name">{card.title}</h2>
+					<p class="thx__text">{card.text}</p>
+				</li>
+			))
+		}
+	</ol>
+</section>

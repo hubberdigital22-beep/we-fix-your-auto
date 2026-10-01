@@ -1,0 +1,47 @@
+---
+import type { KitCopy } from '../../i18n/kit';
+import Icon from '../Icon.astro';
+import type { IconName } from '../../lib/icons';
+
+interface Props {
+	copy: KitCopy['includes'];
+}
+
+const { copy } = Astro.props;
+const names: IconName[] = ['stopwatch', 'snapshot', 'claim', 'route', 'glovebox', 'hazard'];
+---
+
+<section class="sec inc" id="includes" aria-labelledby="includes-title">
+	<div class="wrap">
+		<header class="sec__head">
+			<span class="label" data-reveal data-rise>{copy.eyebrow}</span>
+			<h2 class="title" id="includes-title" data-reveal data-lines>
+				<span class="q">{copy.title[0]}</span>{' '}
+				<span>{copy.title[1]}</span>
+			</h2>
+		</header>
+
+		<div class="inc__frame">
+			<ol class="inc__grid">
+				{
+					copy.items.map((item, index) => (
+						<li class="inc__cell">
+							<div class="inc__body" data-reveal data-rise>
+								<div class="inc__top">
+									<span class="inc__icon" aria-hidden="true">
+										<Icon name={names[index]} weight={1.5} />
+									</span>
+									<span class="inc__num" aria-hidden="true">
+										{String(index + 1).padStart(2, '0')}
+									</span>
+								</div>
+								<h3 class="inc__name">{item.title}</h3>
+								<p class="inc__text">{item.description}</p>
+							</div>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</div>
+</section>
