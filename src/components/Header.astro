@@ -8,16 +8,17 @@ export interface HeaderProps {
 	links?: { href: string; label: string }[];
 	navLabel?: string;
 	lang?: { current: Locale; paths: Record<Locale, string>; label: string; menu?: boolean };
+	logo?: boolean;
 }
 
 type Props = HeaderProps;
 
-const { home, links = [], navLabel, lang } = Astro.props;
+const { home, links = [], navLabel, lang, logo = false } = Astro.props;
 const action = Astro.slots.has('action') ? (await Astro.slots.render('action')).trim() : '';
 ---
 
 <header class="hdr">
-	<Lockup href={home} />
+	<Lockup href={home} logo={logo} />
 
 	{
 		links.length > 0 && (

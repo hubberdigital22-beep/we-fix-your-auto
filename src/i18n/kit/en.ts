@@ -33,11 +33,11 @@ export const kitEn: KitCopy = {
 		note: 'No cost. No spam. It arrives in 2 minutes and you can unsubscribe anytime.',
 	},
 	images: {
-		hero: 'Headlight of a gold car in a dark workshop',
+		hero: 'Headlight of a bluish-white car in a dark workshop',
 		problem: 'Light trails of cars on a highway at night',
 		authority: 'Technician polishing the body of a dark car in the shop',
 		final: 'Black sedan in profile under studio light',
-		thanks: 'Graphite sports car facing forward in a dark studio, with golden headlights on',
+		thanks: 'Graphite sports car facing forward in a dark studio, with blue headlights on',
 	},
 	problem: {
 		title: ["A crash doesn't just cost you the car.", 'It costs you the week.'],

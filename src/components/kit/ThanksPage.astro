@@ -23,7 +23,7 @@ const image = { path: `/og/kit-${locale}.jpg`, width: 1200, height: 630, alt: co
 	path={routes.thanks[locale]}
 	image={image}
 	skipLabel={copy.a11y.skipToContent}
-	header={{ home: routes.home[locale] }}
+	header={{ home: routes.home[locale], logo: true }}
 	noindex
 >
 	<Thanks copy={copy.thanks} alt={copy.images.thanks} home={routes.home[locale]} />

@@ -21,7 +21,7 @@ const known = Object.values(routes).flatMap((paths) => Object.values(paths));
 	description={notFoundCopy.es.description}
 	image={{ path: '/og/kit-es.jpg', width: 1200, height: 630 }}
 	skipLabel={copy.a11y.skipToContent}
-	header={{ home: routes.home.es }}
+	header={{ home: routes.home.es, logo: true }}
 	noindex
 >
 	<script is:inline slot="head" define:vars={{ known }}>

@@ -26,11 +26,11 @@ const template = (copy) => `<!doctype html>
 body { display: grid; grid-template-columns: 1fr 400px; gap: 48px; width: 1200px; height: 630px; padding: 52px 56px; background: #f5f5f2; color: #0d0d0e; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
 .left { display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
 .lockup { display: flex; align-items: center; gap: 14px; font-size: 17px; }
-.name { font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-.div { width: 2px; height: 18px; border-radius: 2px; background: #c9a24a; }
+.logo { display: block; height: 62px; width: auto; }
+.div { width: 2px; height: 34px; border-radius: 2px; background: #3b9ad0; }
 .slogan { font-weight: 500; opacity: 0.72; }
 .label { display: inline-flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #7f7f87; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: #c9a24a; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: #3b9ad0; }
 .main { display: grid; gap: 26px; }
 h1 { font-size: 74px; font-weight: 600; line-height: 1.02; letter-spacing: -0.04em; font-feature-settings: 'cv11'; }
 h1 .q { display: block; font-weight: 400; color: #7f7f87; }
@@ -44,11 +44,11 @@ h1 .q { display: block; font-weight: 400; color: #7f7f87; }
 </head>
 <body>
 <div class="left">
-<div class="lockup"><span class="name">${BRAND}</span><span class="div"></span><span class="slogan">${SLOGAN}</span></div>
+<div class="lockup"><img class="logo" src="${assetUrl('logo-blue.svg')}" alt="${BRAND}"><span class="div"></span><span class="slogan">${SLOGAN}</span></div>
 <div class="main"><span class="label"><span class="dot"></span>${copy.hero.eyebrow}</span><h1><span class="q">${copy.hero.title[0]}</span>${copy.hero.title[1]}</h1></div>
 <div class="pills">${copy.hero.highlights.map((item) => `<span class="pill"><span class="dot"></span>${item}</span>`).join('')}</div>
 </div>
-<div class="photo"><img src="${assetUrl('photos/headlight-soft.jpg')}" alt=""><span class="city"><span class="dot"></span>${CITY}</span></div>
+<div class="photo"><img src="${assetUrl('photos/headlight-ice.jpg')}" alt=""><span class="city"><span class="dot"></span>${CITY}</span></div>
 </body>
 </html>`;
 

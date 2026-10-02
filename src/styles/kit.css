@@ -43,7 +43,7 @@
 	background: var(--dark);
 	overflow: clip;
 	--quiet: var(--on-dark-2);
-	--focus: var(--gold);
+	--focus: var(--accent);
 }
 
 .hero__photo {
@@ -118,7 +118,7 @@
 	max-width: 46ch;
 	font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
 	line-height: 1.55;
-	color: var(--on-dark-2);
+	color: rgb(255 255 255 / 0.8);
 }
 
 .pills {
@@ -148,7 +148,7 @@
 	width: 0.4em;
 	height: 0.4em;
 	border-radius: 50%;
-	background: var(--gold);
+	background: var(--accent);
 }
 
 .hero__aside {
@@ -197,7 +197,7 @@
 		inset 0 1px 0 rgb(255 255 255 / 0.08),
 		0 50px 100px -30px rgb(0 0 0 / 0.75);
 	--quiet: var(--on-dark-2);
-	--focus: var(--gold);
+	--focus: var(--accent);
 }
 
 .kf::before {
@@ -276,13 +276,13 @@
 
 .kf input:focus {
 	outline: none;
-	border-color: var(--gold);
+	border-color: var(--accent);
 	background: rgb(255 255 255 / 0.16);
-	box-shadow: 0 0 0 4px rgb(201 162 74 / 0.28);
+	box-shadow: 0 0 0 4px rgb(59 154 208 / 0.28);
 }
 
 .kf input:focus-visible {
-	outline: 2px solid var(--gold);
+	outline: 2px solid var(--accent);
 	outline-offset: 2px;
 }
 
@@ -340,7 +340,7 @@
 }
 
 .chip input:focus-visible + span {
-	outline: 2px solid var(--gold);
+	outline: 2px solid var(--accent);
 	outline-offset: 3px;
 }
 
@@ -542,7 +542,7 @@
 	display: block;
 	color: var(--ink-2);
 	transition: color 0.4s;
-	--ic-accent: var(--gold);
+	--ic-accent: var(--accent);
 }
 
 .inc__icon svg {
@@ -617,7 +617,7 @@
 	color: var(--on-dark);
 	background: var(--dark);
 	--quiet: var(--on-dark-2);
-	--focus: var(--gold);
+	--focus: var(--accent);
 }
 
 .auth__media {
@@ -685,7 +685,7 @@
 	width: clamp(4px, 0.4vw, 7px);
 	height: 0.72em;
 	border-radius: 999px;
-	background: var(--gold);
+	background: var(--accent);
 	transform-origin: center bottom;
 }
 
@@ -794,7 +794,7 @@
 	width: 1.5rem;
 	height: 1.5rem;
 	margin-top: calc((1.25em - 1.5rem) / 2);
-	color: var(--gold);
+	color: var(--accent);
 	transition: color 0.5s;
 }
 
@@ -805,7 +805,7 @@
 
 @media (hover: hover) {
 	.who__item:hover .who__check {
-		color: var(--gold-ink);
+		color: var(--accent-ink);
 	}
 }
 
@@ -827,7 +827,7 @@
 	background: #050505;
 	text-align: center;
 	--quiet: var(--on-dark-2);
-	--focus: var(--gold);
+	--focus: var(--accent);
 }
 
 .final__photo {
@@ -940,7 +940,7 @@
 .qa[open]:not(.is-closing) .qa__icon {
 	background: var(--ink);
 	border-color: var(--ink);
-	color: var(--gold);
+	color: var(--accent);
 	transform: rotate(180deg);
 }
 
@@ -989,7 +989,7 @@
 	color: var(--on-dark);
 	background: var(--dark);
 	border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-	--focus: var(--gold);
+	--focus: var(--accent);
 }
 
 .ftr__row {
@@ -1002,12 +1002,17 @@
 
 .ftr__row .lockup {
 	font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+	--logo-h: 3rem;
 }
 
 @media (max-width: 22.45em) {
 	.ftr__row .lockup {
 		flex-wrap: wrap;
 		row-gap: 0.5em;
+	}
+
+	.ftr__row .lockup--logo {
+		row-gap: 0.9em;
 	}
 
 	.ftr__row .lockup__div {
@@ -1034,7 +1039,7 @@
 
 @media (hover: hover) {
 	.ftr__legal a:hover {
-		border-color: var(--gold);
+		border-color: var(--accent);
 	}
 }
 
@@ -1164,7 +1169,7 @@
 	place-items: center;
 	justify-self: start;
 	color: var(--on-dark-2);
-	--ic-accent: var(--gold);
+	--ic-accent: var(--accent);
 }
 
 .thx__icon svg {
@@ -1212,7 +1217,7 @@ html[data-locale='pt'] [data-l]:not([data-l='pt']) {
 	color: var(--on-dark);
 	background: #17171a;
 	--quiet: var(--on-dark-2);
-	--focus: var(--gold);
+	--focus: var(--accent);
 }
 
 .nf__body {

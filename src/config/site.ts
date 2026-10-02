@@ -1,3 +1,5 @@
+import logoUrl from '../assets/logo.svg?url';
+
 export const site = {
 	name: 'Collision Auto Pros',
 	slogan: 'We fix your auto.',
@@ -8,7 +10,7 @@ export const site = {
 	timeZone: 'America/New_York',
 	year: 2026,
 
-	logo: null as null | { src: string; width: number; height: number },
+	logo: { src: logoUrl, width: 1444, height: 633 } as null | { src: string; width: number; height: number },
 
 	whatsapp: {
 		number: '18135439898',

@@ -23,10 +23,10 @@
 	--ink-3: #7f7f87;
 	--line: rgb(13 13 14 / 0.1);
 	--line-soft: rgb(13 13 14 / 0.06);
-	--gold: #c9a24a;
-	--gold-hover: #d8b45f;
-	--gold-ink: #8a6a1e;
-	--gold-soft: rgb(201 162 74 / 0.16);
+	--accent: #3b9ad0;
+	--accent-hover: #51abde;
+	--accent-ink: #1f668e;
+	--accent-soft: rgb(59 154 208 / 0.16);
 	--dark: #0d0d0e;
 	--dark-2: #17171a;
 	--on-dark: #ffffff;
@@ -37,7 +37,7 @@
 	--glass-dark: rgb(255 255 255 / 0.08);
 	--glass-dark-line: rgb(255 255 255 / 0.18);
 	--quiet: var(--ink-3);
-	--focus: var(--gold-ink);
+	--focus: var(--accent-ink);
 
 	--radius-sm: 1rem;
 	--radius: 1.75rem;
@@ -156,7 +156,7 @@ button {
 }
 
 ::selection {
-	background: var(--gold);
+	background: var(--accent);
 	color: var(--ink);
 }
 
@@ -231,13 +231,13 @@ main,
 	width: 0.5em;
 	height: 0.5em;
 	border-radius: 50%;
-	background: var(--gold);
+	background: var(--accent);
 }
 
 .label b {
 	font-weight: 600;
 	letter-spacing: 0.04em;
-	color: var(--gold-ink);
+	color: var(--accent-ink);
 	font-variant-numeric: tabular-nums;
 }
 
@@ -246,7 +246,7 @@ main,
 	width: 3rem;
 	height: 3px;
 	border-radius: 999px;
-	background: var(--gold);
+	background: var(--accent);
 	transform-origin: left center;
 }
 
@@ -292,7 +292,7 @@ main,
 	width: 2px;
 	height: 1.15em;
 	border-radius: 999px;
-	background: var(--gold);
+	background: var(--accent);
 }
 
 .lockup__slogan {
@@ -302,8 +302,16 @@ main,
 }
 
 .lockup img {
-	height: 2.25rem;
+	height: var(--logo-h, 2.75rem);
 	width: auto;
+}
+
+.lockup--logo {
+	gap: 1.1em;
+}
+
+.lockup--logo .lockup__div {
+	height: 2.4em;
 }
 
 .btn {
@@ -313,7 +321,7 @@ main,
 	gap: 1em;
 	padding: 0.45em 0.45em 0.45em 1.5em;
 	border-radius: 999px;
-	background: var(--gold);
+	background: var(--accent);
 	color: var(--ink);
 	font-size: clamp(0.875rem, 4vw, 1rem);
 	font-weight: 600;
@@ -340,7 +348,7 @@ main,
 	overflow: hidden;
 	border-radius: 50%;
 	background: var(--ink);
-	color: var(--gold);
+	color: var(--accent);
 	transition:
 		background-color 0.3s,
 		color 0.3s;
@@ -367,7 +375,7 @@ main,
 }
 
 .btn--ink .btn__icon {
-	background: var(--gold);
+	background: var(--accent);
 	color: var(--ink);
 }
 
@@ -384,7 +392,7 @@ main,
 
 @media (hover: hover) {
 	.btn:hover {
-		background: var(--gold-hover);
+		background: var(--accent-hover);
 	}
 
 	.btn:hover .btn__icon svg:first-child {
@@ -471,7 +479,7 @@ main,
 	--pill-bg: var(--on-dark);
 	--pill-fg: var(--ink);
 	--pill-hover: rgb(255 255 255 / 0.12);
-	--focus: var(--gold);
+	--focus: var(--accent);
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -500,7 +508,7 @@ main,
 	position: absolute;
 	inset: auto 0 0;
 	height: 1px;
-	background: var(--gold);
+	background: var(--accent);
 	transform: scaleX(0);
 	transform-origin: right center;
 	transition: transform 0.6s var(--ease-out);
@@ -583,7 +591,7 @@ main,
 	transition:
 		background-color 0.4s,
 		box-shadow 0.4s;
-	--ic-accent: var(--gold);
+	--ic-accent: var(--accent);
 }
 
 .lm__btn::-webkit-details-marker {
@@ -615,7 +623,7 @@ main,
 }
 
 .lm__btn:focus-visible {
-	outline: 2px solid var(--gold);
+	outline: 2px solid var(--accent);
 	outline-offset: 3px;
 }
 
@@ -655,13 +663,13 @@ main,
 	font-size: 0.75rem;
 	font-weight: 700;
 	letter-spacing: 0.1em;
-	color: var(--gold);
+	color: var(--accent);
 }
 
 .lm__check {
 	width: 1.1rem;
 	height: 1.1rem;
-	color: var(--gold);
+	color: var(--accent);
 }
 
 .lm__item[aria-current='true'] {
@@ -669,7 +677,7 @@ main,
 }
 
 .lm__item:focus-visible {
-	outline: 2px solid var(--gold);
+	outline: 2px solid var(--accent);
 	outline-offset: -2px;
 }
 
@@ -730,8 +738,18 @@ main,
 }
 
 .hdr .lockup {
+	--logo-h: 2.375rem;
+}
+
+.hdr .lockup:not(.lockup--logo) {
 	padding-block: 1rem;
 	margin-block: -1rem;
+}
+
+@media (min-width: 56.25em) {
+	.hdr .lockup {
+		--logo-h: 2.625rem;
+	}
 }
 
 @media (max-width: 26.25em) {
@@ -874,7 +892,7 @@ main,
 	position: absolute;
 	inset: 0 0 auto;
 	height: 3px;
-	background: var(--gold);
+	background: var(--accent);
 }
 
 .from-wipe .wipe {

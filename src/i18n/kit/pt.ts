@@ -33,11 +33,11 @@ export const kitPt: KitCopy = {
 		note: 'Sem custo. Sem spam. Chega em 2 minutos e você cancela quando quiser.',
 	},
 	images: {
-		hero: 'Farol de um carro dourado em uma oficina escura',
+		hero: 'Farol de um carro branco-azulado em uma oficina escura',
 		problem: 'Rastros de luz dos carros em uma rodovia à noite',
 		authority: 'Técnico polindo a lataria de um carro escuro na oficina',
 		final: 'Sedã preto de perfil sob luz de estúdio',
-		thanks: 'Carro esportivo cinza-grafite de frente em um estúdio escuro, com os faróis dourados acesos',
+		thanks: 'Carro esportivo cinza-grafite de frente em um estúdio escuro, com os faróis azuis acesos',
 	},
 	problem: {
 		title: ['Um acidente não custa só o carro.', 'Custa a sua semana.'],

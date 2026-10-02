@@ -2,7 +2,7 @@
 
 Site em três idiomas (espanhol, inglês e português) com duas páginas:
 
-- a página inicial é o Kit de Emergência, uma LP de captação com formulário: a copy e a ordem das seções vêm do wireframe do Figma, e o visual é minimalista e claro (60% branco, 30% preto, 10% dourado), com fotos de alta resolução, efeitos de vidro, Inter, GSAP, parallax e microinterações;
+- a página inicial é o Kit de Emergência, uma LP de captação com formulário: a copy e a ordem das seções vêm do wireframe do Figma, e o visual é minimalista e claro (60% branco, 30% preto, 10% azul), com fotos de alta resolução, efeitos de vidro, Inter, GSAP, parallax e microinterações;
 - a LP do WhatsApp, que leva o visitante ao WhatsApp da oficina, está em standby em `/whatsapp/`: fora dos buscadores, com o visual escuro anterior e sem mudanças até nova decisão.
 
 O plano, a copy de referência e os briefings ficam em `docs/`, só na máquina do projeto: a pasta está fora do Git porque o repositório é público.
@@ -48,7 +48,7 @@ Também saem `/robots.txt`, `/sitemap.xml` e `/llms.txt`. Todos os endereços fi
 | Ligar o formulário do Kit | `PUBLIC_KIT_ENDPOINT` em `.env` |
 | Link da política de privacidade | `kit.privacyUrl` em `src/config/site.ts` |
 | Número do WhatsApp, endereço, horário, perfis sociais | `src/config/site.ts` |
-| Colocar o logo oficial | Salve o SVG em `src/assets/logo.svg` e preencha `logo` em `src/config/site.ts` |
+| Trocar o logo | Substitua `src/assets/logo.svg` (branco, sem fundo, com viewBox rente ao desenho) e confira largura e altura em `logo` de `src/config/site.ts`. O Kit, o obrigado e a 404 usam o logo no cabeçalho e no rodapé; a LP do WhatsApp, em standby, segue com o nome em texto (para ligar, passe `logo` ao `Header` e ao `Lockup` dela). O favicon, `public/favicon.svg`, é o monograma do mesmo logo. Os cartões de compartilhamento (`npm run og`) usam `src/assets/logo-blue.svg`, a versão azul para fundo claro |
 | Ligar ou desligar blocos da LP do WhatsApp que dependem de aprovação | `flags` em `src/config/site.ts` |
 | Publicar para os buscadores | `indexable: true` em `src/config/site.ts` |
 | Cores, raios, vidro e tipografia do Kit | Variáveis no topo de `src/styles/base.css` |
@@ -83,13 +83,13 @@ As fotos do Kit vêm do Unsplash (licença Unsplash, uso comercial sem atribuiç
 
 | Arquivo | Uso | Tratamento | Foto no Unsplash |
 |---|---|---|---|
-| `headlight-soft.jpg`, `headlight-tall.jpg` | Fundo do hero e imagem de compartilhamento (o recorte vertical é usado em telas estreitas) | Espelhada; contraste menor, preto levemente levantado e reflexo lateral do carro suavizado | `photo-1532268116505-8c59cc37d2e6` |
-| `highway-gold.jpg` | Faixa da rodovia na seção do problema | Tons de preto, bronze e creme dourado, com vinheta | `photo-1516319915504-015b432d407c` |
-| `polishing-hd.jpg`, `polishing-tall.jpg` | Faixa escura da autoridade (o recorte vertical é usado em telas estreitas em pé) | Espelhada; tons de preto, bronze e creme dourado, com vinheta; versão de 3600 px | `photo-1780558852671-e47265577239` |
-| `sedan-gold.jpg` | Bloco do CTA final | Só a luz do piso tingida de dourado; carro e fundo neutros | `photo-1485291571150-772bcfc10da5` |
-| `ioniq-gold.jpg` | Página de obrigado | Convertida de Adobe RGB para sRGB; faróis de LED passados para o dourado da marca com núcleo claro e brilho suave, detalhes azuis da frente (aba central e friso) em dourado, grão fino | `photo-1708582884245-b0de089d75c0` (Hyundai Motor Group) |
-| `fog-mono.jpg` | Página 404 | Tratada a partir da original de 3600 px: cinza neutro montado dos canais verde e azul (o brilho vermelho das lanternas fica fora), redução de ruído, neblina clareada, grão fino | `photo-1720556405511-a83593e516c6` |
-| `scene/fog-mono-car.png`, `scene/neon-fog-line.png` | Página 404 | Recorte do carro (alfa) e a linha de neon das lanternas, gerados da mesma imagem tratada | derivados |
+| `headlight-ice.jpg`, `headlight-ice-tall.jpg` | Fundo do hero e imagem de compartilhamento (o recorte vertical é usado em telas estreitas) | Espelhada; contraste menor, preto levemente levantado e reflexo lateral suavizado; carroceria em branco azulado: cor da pintura removida e um tom azulado único aplicado pelo brilho de cada ponto, com leve realce dos tons médios e claros e o preto do fundo intacto, grão fino | `photo-1532268116505-8c59cc37d2e6` |
+| `highway-blue.jpg` | Faixa da rodovia na seção do problema | Mapa de cores do preto ao azul de marca até o branco azulado, com vinheta | `photo-1516319915504-015b432d407c` |
+| `polishing-blue.jpg`, `polishing-blue-tall.jpg` | Faixa escura da autoridade (o recorte vertical é usado em telas estreitas em pé) | Espelhada; mapa de cores do preto ao azul de marca até o branco azulado, com vinheta; versão de 3600 px | `photo-1780558852671-e47265577239` |
+| `sedan-reflect.jpg` | Bloco do CTA final | Luz do piso azul de marca e reflexos do carro com tom frio; faixa de luz logo abaixo do carro em branco azulado, mais forte junto aos pneus e passando suave para o azul do piso; o fundo continua preto | `photo-1485291571150-772bcfc10da5` |
+| `ioniq-blue.jpg` | Página de obrigado | Convertida de Adobe RGB para sRGB; faróis de LED passados para o azul da marca com núcleo claro e brilho suave, detalhes azuis da frente (aba central e friso) no azul da marca, leve tom frio na carroceria, grão fino | `photo-1708582884245-b0de089d75c0` (Hyundai Motor Group) |
+| `fog-blue.jpg` | Página 404 | Tratada a partir da original de 3600 px: cinza montado dos canais verde e azul (o brilho vermelho das lanternas fica fora) com tom frio azulado, redução de ruído, neblina clareada, grão fino | `photo-1720556405511-a83593e516c6` |
+| `scene/fog-blue-car.png`, `scene/neon-blue-line.png` | Página 404 | Recorte do carro (alfa) e a linha de neon das lanternas, em azul da marca, gerados da mesma imagem tratada | derivados |
 
 Para trocar por fotos da oficina, salve o JPG (3600 px de largura, proporção parecida) com um nome novo, troque o import no componente da seção e ajuste o texto alternativo em `images` nos arquivos de `src/i18n/kit/`.
 

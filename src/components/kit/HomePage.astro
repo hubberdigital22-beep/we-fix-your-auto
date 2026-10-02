@@ -1,7 +1,7 @@
 ---
 import { getImage } from 'astro:assets';
-import heroPhoto from '../../assets/photos/headlight-soft.jpg';
-import heroTallPhoto from '../../assets/photos/headlight-tall.jpg';
+import heroPhoto from '../../assets/photos/headlight-ice.jpg';
+import heroTallPhoto from '../../assets/photos/headlight-ice-tall.jpg';
 import { routes } from '../../config/routes';
 import { getKitCopy } from '../../i18n/kit';
 import type { Locale } from '../../i18n/locales';
@@ -28,7 +28,7 @@ const { locale } = Astro.props;
 const copy = getKitCopy(locale);
 const path = routes.home[locale];
 const image = { path: `/og/kit-${locale}.jpg`, width: 1200, height: 630, alt: copy.seo.imageAlt };
-const header = { home: path, lang: { current: locale, paths: routes.home, label: copy.a11y.languageNav, menu: true } };
+const header = { home: path, logo: true, lang: { current: locale, paths: routes.home, label: copy.a11y.languageNav, menu: true } };
 const heroPreload = await getImage({ src: heroPhoto, width: 1600, widths: photoWidths, sizes: heroSizes, format: 'webp', quality: photoQuality });
 const heroTallPreload = await tallImage(heroTallPhoto);
 ---

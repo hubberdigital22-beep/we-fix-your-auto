@@ -3,16 +3,18 @@ import { site } from '../config/site';
 
 interface Props {
 	href?: string;
+	logo?: boolean;
 }
 
-const { href } = Astro.props;
+const { href, logo = false } = Astro.props;
 const Tag = href ? 'a' : 'span';
+const mark = logo ? site.logo : null;
 ---
 
-<Tag class="lockup" href={href}>
+<Tag class={mark ? 'lockup lockup--logo' : 'lockup'} href={href}>
 	{
-		site.logo ? (
-			<img src={site.logo.src} width={site.logo.width} height={site.logo.height} alt={site.name} />
+		mark ? (
+			<img src={mark.src} width={mark.width} height={mark.height} alt={site.name} decoding="async" />
 		) : (
 			<span class="lockup__name">{site.name}</span>
 		)

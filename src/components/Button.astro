@@ -7,17 +7,17 @@ interface Props extends Omit<HTMLAttributes<'a'>, 'class' | 'class:list' | 'type
 	label: string;
 	busyLabel?: string;
 	size?: 'sm' | 'md' | 'xl';
-	variant?: 'gold' | 'ink' | 'ghost';
+	variant?: 'accent' | 'ink' | 'ghost';
 	icon?: 'forward' | 'back';
 }
 
-const { href, label, busyLabel, size = 'md', variant = 'gold', icon = 'forward', ...attributes } = Astro.props;
+const { href, label, busyLabel, size = 'md', variant = 'accent', icon = 'forward', ...attributes } = Astro.props;
 const Tag = href ? 'a' : 'button';
 const arrow = icon === 'back' ? 'back' : 'arrow';
 ---
 
 <Tag
-	class:list={['btn', size !== 'md' && `btn--${size}`, variant !== 'gold' && `btn--${variant}`, icon === 'back' && 'btn--back']}
+	class:list={['btn', size !== 'md' && `btn--${size}`, variant !== 'accent' && `btn--${variant}`, icon === 'back' && 'btn--back']}
 	href={href}
 	type={href ? undefined : 'submit'}
 	{...attributes}
